@@ -1,0 +1,32 @@
+/* style1.css - main page */
+:root{
+  --bg1:#ffd1dc; --bg2:#ffe6f0; --accent:#ff6b9a; --muted:#7a4b6a;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family: 'Nunito', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial}
+body{background:linear-gradient(120deg,var(--bg1),var(--bg2));display:flex;align-items:center;justify-content:center}
+.page{padding:2rem;width:100%;max-width:720px}
+.card{background:rgba(255,255,255,0.95);border-radius:18px;padding:2.5rem;text-align:center;box-shadow:0 12px 30px rgba(0,0,0,0.08)}
+h1{font-family:'Fredoka One', cursive;margin:0 0 .35rem;color:var(--accent);font-size:2.2rem}
+.subtitle{color:var(--muted);margin:0 0 1.25rem}
+.buttons{display:flex;gap:1rem;justify-content:center;margin-top:1rem}
+.btn{padding:.9rem 1.4rem;border-radius:999px;text-decoration:none;font-weight:700;display:inline-block;transition:transform .18s ease,box-shadow .18s ease}
+.btn.yes{background:linear-gradient(90deg,#ff7aa2,#ff4d8d);color:white;box-shadow:0 8px 18px rgba(255,90,140,0.25)}
+.btn.no{background:transparent;border:2px solid #ffd6e1;color:#7a4b6a}
+.btn.yes:hover{transform:translateY(-4px)}
+.hint{color:#b07b8e;margin-top:1rem;font-size:.95rem}
+
+/* small responsive */
+@media (max-width:420px){.card{padding:1.6rem} .btn{padding:.7rem 1rem}}
+
+/* mobile improvements */
+@media (max-width:600px){
+  .page{padding:1rem;max-width:420px}
+  .card{padding:1.4rem;border-radius:14px}
+  h1{font-size:1.6rem}
+  .subtitle{font-size:.95rem}
+  .buttons{align-items:stretch;gap:.8rem}
+  .btn{width:100%;padding:.9rem 1rem;font-size:15px}
+  .btn.yes{box-shadow:0 10px 22px rgba(255,90,140,0.18)}
+  .hint{font-size:.9rem}
+}

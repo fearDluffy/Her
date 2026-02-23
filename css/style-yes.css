@@ -1,0 +1,32 @@
+/* style-yes.css - celebration page */
+:root{--bg:#fff7fb;--accent:#ff3b78}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family: 'Fredoka One', 'Nunito', system-ui, -apple-system;background:linear-gradient(180deg,#fff,#fff6fb);display:flex;align-items:center;justify-content:center}
+.page{width:100%;max-width:760px;padding:2rem}
+.card{background:white;border-radius:18px;padding:2.2rem;text-align:center;box-shadow:0 18px 44px rgba(255,0,125,0.06);position:relative;overflow:hidden}
+h1{color:var(--accent);font-size:2.2rem;margin:0}
+.message{color:#8f5166;margin-top:0.8rem;font-weight:600}
+.tiny{color:#c0899f;margin-top:0.6rem}
+.btn.home{display:inline-block;margin-top:1.2rem;background:#ff93b0;color:white;padding:.75rem 1.3rem;border-radius:999px;text-decoration:none}
+.hearts{position:absolute;inset:0;pointer-events:none}
+/* falling hearts */
+.hearts::before,.hearts::after{content:"";position:absolute;left:50%;top:-20%;width:14px;height:14px;border-radius:3px;background:transparent}
+@keyframes fall {
+  0%{transform:translateY(-10vh) scale(0.9);opacity:0}
+  10%{opacity:1}
+  100%{transform:translateY(120vh) rotate(180deg) scale(1.1);opacity:0}
+}
+/* add a few floating heart elements */
+.card.celebrate::after{
+  content:"💖 💕 💘 💝";position:absolute;left:10%;top:8%;font-size:22px;animation:fall 3.6s linear infinite}
+.card.celebrate::before{
+  content:"💞 💓";position:absolute;right:8%;top:0;font-size:20px;animation:fall 4.5s linear infinite}
+
+@media (max-width:600px){
+  .page{padding:1rem;max-width:420px}
+  .card{padding:1.2rem;border-radius:14px}
+  h1{font-size:1.6rem}
+  .message{font-size:1rem}
+  .tiny{font-size:.9rem}
+  .btn.home{display:block;width:100%;padding:.8rem 1rem;font-size:15px;margin-top:.9rem}
+}

@@ -1,0 +1,24 @@
+/* style2.css - second page */
+:root{--bg1:#fef3e7;--bg2:#fff0f6;--accent:#ff8fb0;--muted:#8b5a6a}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family: 'Nunito', system-ui, -apple-system, 'Segoe UI', Roboto}
+body{background:linear-gradient(160deg,var(--bg1),var(--bg2));display:flex;align-items:center;justify-content:center}
+.card{background:white;border-radius:18px;padding:2.2rem;text-align:center;box-shadow:0 18px 40px rgba(0,0,0,0.06);max-width:720px;margin:2rem}
+h1{color:var(--accent);font-size:2rem;margin:0}
+.subtitle{color:var(--muted);margin:8px 0 1.25rem}
+.buttons{display:flex;gap:1rem;justify-content:center;margin-top:1rem}
+.btn{padding:.85rem 1.3rem;border-radius:999px;text-decoration:none;font-weight:700;display:inline-block;transition:transform .12s ease}
+.btn.yes{background:#ff9ab7;color:white}
+.btn.no{background:#fff6f9;border:2px solid #ffdbe6;color:#7b5362}
+.btn:hover{transform:translateY(-3px)}
+.note{color:#c48a97;margin-top:1rem}
+@media (max-width:420px){.card{padding:1.4rem}}
+
+@media (max-width:600px){
+	.card{padding:1.2rem;border-radius:14px;margin:1rem}
+	h1{font-size:1.4rem}
+	.subtitle{font-size:.95rem}
+	.buttons{align-items:stretch;gap:.8rem}
+	.btn{width:100%;padding:.85rem 0.5rem;font-size:15px}
+	.note{font-size:.9rem}
+}

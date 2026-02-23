@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Yes! 💘</title>
+  <link rel="stylesheet" href="css/style-yes.css">
+</head>
+<body>
+  <main class="page">
+    <div class="card">
+      <div class="hearts" aria-hidden="true"></div>
+      <h1>Yehhhhhaaaaa — You said YES! 🎉</h1>
+      <p class="message">Akii sachii mai bhot he jyda yaad aati ja rhe hai tu din pritidin mtln mere pass hoker bhe toh bhot he jyda yaad aa rhe hai mai kisi ko bhe dekhta couple ko toh tu yaad aa jati hai muje humesha and i love you akiiiiiiiiii. 🌸💖</p>
+      <p id="proposalNote" class="tiny">(You made my future you made me a man who i am today my all positive side and negative thing donent count hehhehehe...!!)</p>
+      <div style="margin-top:12px;display:flex;gap:.6rem;align-items:center;justify-content:center;flex-wrap:wrap">
+        <button id="notifyBtn" class="btn" style="display:none;background:#ffdfe9;border:1px solid #ffb6d1;color:#8b4f66;padding:.55rem .9rem">Notify proposer 💌</button>
+        <a class="btn home" href="index.html">Back to start 💌</a>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/params.js"></script>
+  <script>
+    // gentle sparkle on load and personalize the message if `porposal-by` present
+    document.addEventListener('DOMContentLoaded', ()=>{
+      document.querySelector('.card').classList.add('celebrate');
+      try{
+        const name = window.__proposal && window.__proposal.getName && window.__proposal.getName();
+        const note = document.getElementById('proposalNote');
+        if(name && note){
+          note.textContent = name + " proposed to you — you said YES! 💖";
+        }
+
+        // show notify button if an email param exists
+        const params = new URLSearchParams(window.location.search);
+        const proposerEmail = params.get('porposal-email');
+        const notify = document.getElementById('notifyBtn');
+        if(proposerEmail && notify){
+          notify.style.display = 'inline-block';
+          notify.addEventListener('click', function(){
+            const subject = 'I said YES to your proposal! 💖';
+            const body = 'Hello ' + (name||'') + ',\n\nI accepted your proposal. I said YES! 🎉\n\nSee you soon ❤️';
+            const mailto = 'mailto:' + proposerEmail + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+
+            // If site is hosted on GitHub Pages or opened via file://, PHP won't run — fall back to mailto
+            if(window.location.protocol === 'file:' || (window.location.hostname && window.location.hostname.endsWith('github.io'))){
+              window.location.href = mailto;
+              return;
+            }
+
+            // otherwise try AJAX to server endpoint
+            notify.disabled = true;
+            notify.textContent = 'Notifying...';
+
+            const form = new URLSearchParams();
+            form.append('to', proposerEmail);
+            form.append('subject', subject);
+            form.append('message', body);
+
+            fetch('send_mail.php', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+              body: form.toString()
+            }).then(res=>{
+              if(res.status === 405){
+                // server does not allow POST (e.g., GitHub Pages) — fallback
+                window.location.href = mailto;
+                return Promise.reject(new Error('Server does not accept POST (405)'));
+              }
+              return res.json();
+            }).then(json=>{
+              if(json && json.ok){
+                notify.textContent = 'Notified ✓';
+              } else {
+                notify.textContent = 'Send failed';
+                notify.disabled = false;
+                alert('Notification failed: ' + (json && json.error ? json.error : 'unknown'));
+              }
+            }).catch(err=>{
+              // fallback to mail client
+              notify.textContent = 'Send failed';
+              notify.disabled = false;
+              try{ window.location.href = mailto; }catch(_){ }
+            });
+          });
+        }
+      }catch(e){}
+    });
+  </script>
+</body>
+</html>
